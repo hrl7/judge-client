@@ -1,27 +1,18 @@
-import {SIGN_IN, SIGN_UP, signInFailed, signInSuccess, signUpFailed, signUpSuccess} from "../modules/auth";
-import * as API from "../../api";
-import {jump} from "../modules/route";
+import API from "../../api";
+import {GET_CURRENT_USER, onGetCurrentUserFailed, onGetCurrentUserSuccess} from "../modules/users";
+import {GET_PROBLEMS_REQUEST, onGetProblemsFailed, onGetProblemsSuccess} from "../modules/problems";
 
 export const serverMiddleware = store => next => action => {
-  console.log("middleware: ", action);
+  const d = store.dispatch;
 
   switch (action.type) {
-    case SIGN_IN:
-      API.signIn(action.payload, signInSuccess, signInFailed)
-        .then((action) => {
-          store.dispatch(action);
-          store.dispatch(jump("home"));
-        })
-        .catch(store.dispatch);
+    case GET_CURRENT_USER:
+      API.getCurrentUser(onGetCurrentUserSuccess, onGetCurrentUserFailed).then(d, d);
       break;
-    case SIGN_UP:
-      API.signUp(action.payload, signUpSuccess, signUpFailed)
-        .then((action) => {
-          store.dispatch(action);
-          store.dispatch(jump("sign_in"));
-        })
-        .catch(store.dispatch);
+    case GET_PROBLEMS_REQUEST: {
+      API.getProblemList(onGetProblemsSuccess, onGetProblemsFailed).then(d, d);
       break;
+    }
     default:
       break;
   }

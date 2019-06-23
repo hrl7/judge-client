@@ -1,9 +1,17 @@
-import {SIGN_IN, SIGN_UP, signInFailed, signInSuccess, signUpFailed, signUpSuccess} from "../modules/auth";
+import {
+  SIGN_IN,
+  SIGN_OUT,
+  SIGN_UP,
+  signInFailed,
+  signInSuccess,
+  signUpFailed,
+  signUpSuccess,
+  UNAUTHORIZED
+} from "../modules/auth";
 import * as API from "../../api";
 import {jump} from "../modules/route";
 
 export const authMiddleware = store => next => action => {
-  console.log("middleware: ", action);
 
   switch (action.type) {
     case SIGN_IN:
@@ -14,6 +22,7 @@ export const authMiddleware = store => next => action => {
         })
         .catch(store.dispatch);
       break;
+
     case SIGN_UP:
       API.signUp(action.payload, signUpSuccess, signUpFailed)
         .then((action) => {
@@ -21,6 +30,16 @@ export const authMiddleware = store => next => action => {
           store.dispatch(jump("sign_in"));
         })
         .catch(store.dispatch);
+      break;
+
+    case UNAUTHORIZED:
+      API.signOut();
+      store.dispatch(jump("sign_in"));
+      break;
+
+    case SIGN_OUT:
+      API.signOut();
+      store.dispatch(jump("sign_in"));
       break;
     default:
       break;

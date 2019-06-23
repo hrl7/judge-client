@@ -1,17 +1,18 @@
 import React, {Component} from "react";
 import {connect} from "react-redux";
+import Navbar from "../components/navbar";
+import ProblemList from "../components/ProblemList";
 
 class Home extends Component {
-  constructor(props) {
-    super(props);
-  }
 
   render() {
-    return (<div>
+    return (<div className="container">
+      <Navbar/>
       <h1>Home</h1>
+      <ProblemList/>
       <style jsx>{`
         .container {
-        
+           
         }
       `}</style>
     </div>)

@@ -46,6 +46,8 @@ class SignUp extends Component {
            width: 20vw;
            display: flex;
            flex-direction: column;
+           margin: auto;
+           padding-top: 5rem;
         }
         
         .row {
