@@ -8,7 +8,7 @@ const makePath = (state, action) => {
   if (action.payload === "problem") {
     return `/problem/${state.problems.current}`;
   }
-  return action.payload;
+  return `/${action.payload}`;
 }
 export const loaderMiddleware = store => next => action => {
   const dispatch = store.dispatch;
