@@ -51,6 +51,7 @@
     "redux-actions": "^2.6.5",
     "resolve": "1.10.0",
     "sass-loader": "7.1.0",
+    "scheme-interpreter": "github:hrl7/scheme-interpreter.js#master",
     "semver": "6.0.0",
     "style-loader": "0.23.1",
     "styled-jsx": "^3.2.1",
